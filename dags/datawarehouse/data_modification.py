@@ -1,15 +1,15 @@
 import logging
 
-from dags.api.video_stats import video_ids
-from dags.datawarehouse.data_utils import table
-from dags.datawarehouse.data_utils import get_conn_cursor, close_conn_cursor
-from dags.datawarehouse.data_utils import create_schema, create_table
-from dags.datawarehouse.data_utils import get_video_ids_from_db
-from dags.datawarehouse.data_loading import transform_data
+from api.video_stats import get_video_ids
+from datawarehouse.data_utils import create_table
+from datawarehouse.data_utils import get_conn_cursor, close_conn_cursor
+from datawarehouse.data_utils import create_schema, create_table
+from datawarehouse.data_utils import get_video_ids_from_db
+from datawarehouse.data_transformation import transform_data
 
 
 logging = logging.getLogger(__name__)
-table = "data_warehouse.youtube_video_stats"
+table = "youtube_video_stats"
 
 def insert_rows_to_db(cursor, conn,data, schema_name, table_name="youtube_video_stats"):
     conn, cursor = get_conn_cursor()
@@ -18,7 +18,6 @@ def insert_rows_to_db(cursor, conn,data, schema_name, table_name="youtube_video_
         if schema_name == "staging":
             table_name = f"{schema_name}.{table_name}"
             video_id = 'video_id'
-
 
             table_full_name = f"{schema_name}.{table_name}"
             insert_query = f"""
