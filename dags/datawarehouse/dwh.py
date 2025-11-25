@@ -9,24 +9,6 @@ import logging
 logging = logging.getLogger(__name__)
 table = "youtube_video_stats"
 
-
-def default_args():
-    return {
-        'owner': 'airflow',
-        'depends_on_past': False,
-        'start_date': days_ago(1),
-        'email_on_failure': False,
-        'email_on_retry': False,
-        'retries': 1,
-    }   
-
-@dag(
-    default_args=default_args(),   
-    schedule_interval='@daily',
-    catchup=False,
-    tags=['data_warehouse'],
-)
-
 @task()
 def staging_table():
     schema_name="staging"
@@ -67,7 +49,7 @@ def staging_table():
         if conn and cursor:
             close_conn_cursor(conn, cursor)
 
-
+@task
 def core_table():   
     schema_name="core"
     conn, cursor = None, None
@@ -107,4 +89,3 @@ def core_table():
     finally:    
         if conn and cursor:
             close_conn_cursor(conn, cursor)
-

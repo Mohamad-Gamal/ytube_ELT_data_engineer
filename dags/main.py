@@ -53,7 +53,6 @@ with DAG(
     # Define dependencies
     playlist_id >> video_ids >> extract_data >> save_to_json_task >> trigger_update_db
 
-# DAG 2: update_db
 with DAG(
     dag_id="update_db",
     default_args=default_args,
@@ -62,7 +61,6 @@ with DAG(
     schedule="0 15 * * *",
 ) as dag_update:
 
-    # Define tasks
     update_staging = staging_table()
     update_core = core_table()
 
@@ -71,7 +69,6 @@ with DAG(
         trigger_dag_id="data_quality",
     )
 
-    # Define dependencies
     update_staging >> update_core >> trigger_data_quality
 
 # DAG 3: data_quality
