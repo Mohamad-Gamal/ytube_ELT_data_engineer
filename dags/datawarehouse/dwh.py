@@ -1,6 +1,6 @@
 from datawarehouse.data_modification import insert_rows_to_db, update_rows, delete_rows
-from datawarehouse.data_loading import load_data_from_api, 
-from datawarehouse.data_utils import et_video_ids_from_db, et_conn_cursor, close_conn_cursor, create_schema, create_table, get_video_ids_from_db   
+from datawarehouse.data_loading import load_data_from_api
+from datawarehouse.data_utils import get_video_ids_from_db, et_conn_cursor, close_conn_cursor, create_schema, create_table, get_video_ids_from_db   
 from datawarehouse.data_transformation import transform_data
 from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago

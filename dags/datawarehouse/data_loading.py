@@ -1,6 +1,6 @@
 import os
 import json
-from datatime import date
+from datetime import date
 import logging
 
 logging = logging.getLogger(__name__)
